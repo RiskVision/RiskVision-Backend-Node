@@ -1,4 +1,4 @@
-import { Document, Packer, Paragraph, TextRun, ImageRun } from "docx";
+/*import { Document, Packer, Paragraph, TextRun, ImageRun } from "docx";
 import fs from "fs";
 import path from "path";
 
@@ -19,13 +19,13 @@ class ReportGenerator {
                     height: 100,
                 },
             });
-        })); */
+        })); 
 
         // Add paragraphs and images to the document
         doc.addSection({
             children: [
                 ...paragraphs,
-               /*  ...imageRuns.map(imgRun => new Paragraph(imgRun)), */
+                 ...imageRuns.map(imgRun => new Paragraph(imgRun)), 
             ],
         });
 
@@ -35,4 +35,4 @@ class ReportGenerator {
     }
 }
 
-export default ReportGenerator;
+export default ReportGenerator;*/
