@@ -1,7 +1,7 @@
 {
   "name": "riskvision-backend-node",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "main": "app.js",
   "dependencies": {
     "abbrev": "^1.1.1",
@@ -29,6 +29,7 @@
     "call-bind": "^1.0.7",
     "chokidar": "^3.6.0",
     "commander": "^11.1.0",
+    "compression": "^1.7.4",
     "concat-map": "^0.0.1",
     "content-disposition": "^0.5.4",
     "content-type": "^1.0.5",
@@ -57,6 +58,7 @@
     "event-target-shim": "^5.0.1",
     "events": "^3.3.0",
     "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
     "fill-range": "^7.0.1",
     "finalhandler": "^1.2.0",
     "for-each": "^0.3.3",
@@ -77,6 +79,7 @@
     "has-symbols": "^1.0.3",
     "has-tostringtag": "^1.0.2",
     "hasown": "^2.0.2",
+    "helmet": "^8.0.0",
     "http-errors": "^2.0.0",
     "http-proxy-agent": "^5.0.0",
     "https-proxy-agent": "^5.0.1",
