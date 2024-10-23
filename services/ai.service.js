@@ -13,7 +13,7 @@ const generateAIResponse = async (prompt) => {
         const AZURE_AI_ENDPOINT = process.env.AZURE_AI_ENDPOINT;
 
         if (!AZURE_API_KEY || !AZURE_AI_ENDPOINT) {
-            throw new Error('Azure configuration missing');
+            throw new AppError('Azure configuration missing', 500);
         }
 
         const headers = {
@@ -36,13 +36,13 @@ const generateAIResponse = async (prompt) => {
         const response = await axios.post(AZURE_AI_ENDPOINT, payload, { headers });
         
         if (!response.data || !response.data.choices || !response.data.choices[0]) {
-            throw new Error('Invalid response from Azure AI');
+            throw new AppError('Invalid response from Azure AI', 500);
         }
 
         return response.data.choices[0].message.content;
     } catch (error) {
         console.error('Azure AI Error:', error.response?.data || error.message);
-        throw new Error(error.message || 'Failed to process AI request');
+        throw new AppError(error.message || 'Failed to process AI request', 500);
     }
 };
 

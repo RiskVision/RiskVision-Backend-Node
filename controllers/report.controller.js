@@ -40,15 +40,12 @@ export default ReportGenerator;*/
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const aiService = require('../services/ai.service');
-const { getVulnerability } = require('./cve-nvd.controller');
-const status = require('statuses');
+const nvdService = require('../services/cve-nvd.service');
 
 exports.getReport = catchAsync(async (req, res, next) => {
     try {
         // Obtener la vulnerabilidad
-        const vulnerability =
-            'Los dispositivos POS basados en Android PAX permiten la escalada de privilegios a través de scripts configurados incorrectamente. Un atacante debe tener acceso al shell con privilegios de cuenta del sistema para poder explotar esta vulnerabilidad. Se incluyó un parche que soluciona este problema en la versión de firmware PayDroid_8.1.0_Sagittarius_V11.1.61_20240226.';
-
+        const vulnerability = await nvdService.getNVDResponse();
 
         //Llamar el AI
 
