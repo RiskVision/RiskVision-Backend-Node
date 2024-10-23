@@ -61,7 +61,7 @@ app.use(limiter); // Apply rate limiting to all requests
 app.use(express.json()); // Parse incoming JSON requests
 app.use("/ai", aiRouter); // Use AI routes
 app.use("/nvd", nvdRouter); // Use NVD routes
-//app.use("/reports", reportRouter); // Use Report routes
+app.use("/reports", reportRouter); // Use Report routes
 
 // Error handler for invalid routes
 app.all("*", (req, res, next) => {

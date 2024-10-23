@@ -25,3 +25,16 @@
 // module.exports = router;
 
 // //TODO - No se modificó este archivo porque se necesita más información sobre el flujo de trabajo de la aplicación para poder refactorizarlo.
+
+
+const express = require('express');
+var router = express.Router();
+
+const {
+    getReport,
+} = require('../controllers/report.controller');
+
+router.route('/getReport')
+    .get(getReport);
+
+module.exports = router;
