@@ -11,6 +11,7 @@ const AppError = require("./utils/appError.js"); // Import custom AppError class
 const aiRouter = require("./routes/ai.routes.js"); // Import AI routes
 const nvdRouter = require("./routes/cve-nvd.routes.js"); // Import NVD routes
 const reportRouter = require("./routes/reports.routes.js"); // Import Report routes
+const loginRouter = require('./routes/login.js')
 
 
 
@@ -62,6 +63,8 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use("/ai", aiRouter); // Use AI routes
 app.use("/nvd", nvdRouter); // Use NVD routes
 //app.use("/reports", reportRouter); // Use Report routes
+app.use('/login', loginRouter) //do Authentication and User Management
+
 
 // Error handler for invalid routes
 app.all("*", (req, res, next) => {
