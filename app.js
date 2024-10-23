@@ -16,7 +16,6 @@ const reportRouter = require("./routes/reports.routes.js"); // Import Report rou
 
 const app = express(); // Create an Express application
 
-app.enable("trust proxy"); // Enable proxy trust
 app.use(cors()); // Enable CORS
 app.options("*", cors()); // Enable CORS pre-flight for all routes
 
