@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "test-api-riskvision",
+    "private_key_id": "aa83538a8ba1f5deee4b49614e40026fd9e5387b",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNLYxabb1+3EzO\npQNqmIoj6NNYvlO1yeZRdENTsck4StrYCtvCYTsiBtl69Y6G0wXf4MCS2FDC+TcH\nhC3vh6pDTRGXz2pXGri8hURWXJwcxK/Vw5OZfeobJ614F4YohHLAjeBeO2HjwT/4\nawVZSEmje27x7tQCZjBI2q1jrSG9bbb+ssYLvjXTZnywwbxPnCjS+KusCuBirFPy\nf++7/yq6zeKWshX6GM60D4Z3tZbUBqloYPy1TBnRJvjAVOV+WXXDw4XsejFxq5v4\n8mYE8tv4ahg11ZDO63CYRYwgS0PqfnG4wwal2C6tDTYG3F4zAxrBAY8BB1aAwLQk\nA5+SUMDVAgMBAAECgf8ySrfcconATr+E522u8zTpGGi1l/Fs3dBWpujZ2vo3kiGS\nUxcKzkpwTL2CJi6JXbBS8ARD+kHRiMS0UvHvhJF3bayiSXUHZMVjcEcP5CNf6dYv\nz4CeXv7DKTab+SgpRk3aZOxaLLQR34yOl6z39YAXUmofYysUa3fqY6+cfxOGGq2N\nZnbnLCFnXXRBiCcjj9TX7IMeybJ+5gvqZMt9hKUDlyQpNz6f5UNZP+8nvDZBPAmP\nWTWRXyIoI/EMavzDvfM9A0/STXVorXfHcVnba1Q3ikPtniCN6qaFbVRQHR0rrZpk\nfYLyExdYPBrjGZLVTLf6KfPp0s71E3KON95miIECgYEA/gFVrd+AbMhIrwrJbfnR\nYGqrxnfS8EhD2RJ4NsIi0xXmcTOG9RR2WBP/+0oNJyUpFEJhXO4JXH0WJnJmrR/n\njFob4AG1UMr8Rc1VN+NvcdJkV+pbli0mIiFIMwdraFGBIdGK/d8qIc3JBt1F/H5U\nUekO/2OFRPwWYrOqZNfcq4ECgYEAzsoMc7+STVKHb1JkyhGZ8pxLccXc47ok/i7O\nxKsR2Qr1FpvY5mSNgNkfunuALnLooTS+RVjHhygcqLynswjbG3gVmFBLYlaTSBF1\n5H4+UiJ6GCMoKNiq+QuU5+1AB1BnSX7OWqGcj8Bb2P3qLPFgCgI+UhrZ5Yk3dJl9\nPEifT1UCgYEAywAUEq7yO35iIIsVavBiNpVqDWcMTX7jwqOxMco7/Mme70/IByzA\nXCo3xgRruKJJT2ix2YxgLOvHfRinGKvL6W7GomObHiPsNHkjJ1R8Z9JG4cBqS/5v\nYI2K30WJwMiK1JVcaQMm7/dAN102ptHr377Mfq1yAC0cUuvWPVwLf4ECgYEAhqcU\nsq51IvpxjHC3hsktWMija+Nusa89dXKfW3sVtSIoc99pvqSNa/B2c6UF07kpeAdz\nOo7T5lOdTdcC0Fcc7eclELiATfmYEB6miPIXvL4MiPkjpm1n76G2Bcv8nIajqzzy\nPBvuacDVThgRS9ClO/83+5jWeFwAi2GDJiUX770CgYEA7acAVK4kMHRv/n5nYVEi\nLj4dTz5uwK89EeKPptQRApfdzlpKb7Nl2c8lsVuDruTUIBmCy0BXGYHbVaaLQfJg\nOLQrW/7Vba5akx4q4bbp/ipaJyn9G58+ms3qaoWJV/rFhrn6Q2UrM+vVpnPeR36H\n2isc6srON1XaIvWTSZEoY0A=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-kobs8@test-api-riskvision.iam.gserviceaccount.com",
+    "client_id": "115232438750549466197",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-kobs8%40test-api-riskvision.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
