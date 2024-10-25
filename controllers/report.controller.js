@@ -36,3 +36,29 @@ class ReportGenerator {
 }
 
 export default ReportGenerator;*/
+
+const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
+const aiService = require('../services/ai.service');
+const nvdService = require('../services/cve-nvd.service');
+
+exports.getReport = catchAsync(async (req, res, next) => {
+    try {
+        // Obtener la vulnerabilidad
+        const vulnerability = await nvdService.getNVDResponse();
+
+        //Llamar el AI
+
+        const aiContent = await aiService.generateAIResponse(vulnerability);
+
+        res.status(200).json({
+            status: 'success',
+            data: aiContent
+        });
+
+    } catch (error) {
+        console.error('Report Generation Error:', error);
+        return next(new AppError(error.message || 'Failed to generate report', 500));
+
+    }
+});
