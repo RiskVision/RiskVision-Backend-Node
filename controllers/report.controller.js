@@ -10,11 +10,11 @@ exports.getReport = catchAsync(async (req, res, next) => {
         const vulnerability = await nvdService.getNVDResponse();
 
         // Generate AI response content
-        //const aiContent = await aiService.generateAIResponse(vulnerability);
+        const aiContent = await aiService.generateAIResponse(vulnerability);
 
         // Generate Word report with the retrieved content
         const reportGenerator = new ReportGenerator();
-        const wordBuffer = await reportGenerator.createReport([vulnerability]);
+        const wordBuffer = await reportGenerator.createReport(aiContent);
 
         // Set headers and send the file as a response
         res.setHeader(

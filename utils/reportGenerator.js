@@ -13,11 +13,15 @@ class ReportGenerator {
                         new Paragraph({
                             children: [new TextRun({ text: "Análisis de Riesgos de Ciberseguridad", bold: true })],
                             heading: HeadingLevel.HEADING_1,
+                            spacing: {
+                                before: 200,
+                                after: 200
+                            }
                         }),
                         // Párrafos de contenido
                         new Paragraph({
                             children: [
-                                new TextRun("\nEste reporte contiene un análisis de riesgos y amenzas de las vulnerabilidades encontradas y los controles que se recomiendan implementar para los mismos."),
+                                new TextRun("Este reporte contiene un análisis de riesgos y amenzas de las vulnerabilidades encontradas y los controles que se recomiendan implementar para los mismos."),
                             ],
                         }),
                         new Paragraph({
@@ -48,7 +52,7 @@ class ReportGenerator {
                         }),
                         // Ejemplo de múltiples párrafos y formato
                         new Paragraph({
-                            children: [new TextRun("Párrafo adicional con información importante.")],
+                            children: [new TextRun(content)],
                             spacing: {
                                 after: 200, // Espacio después del párrafo
                             },
