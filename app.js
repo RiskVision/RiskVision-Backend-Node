@@ -6,14 +6,14 @@ const helmet = require("helmet"); // Import Helmet for setting security-related 
 const compression = require("compression"); // Import Compression for compressing response bodies
 const rateLimit = require("express-rate-limit"); // Import Rate Limiting middleware
 const AppError = require("./utils/appError.js"); // Import custom AppError class
+const { sql, poolPromise } = require('./database/dbSQL.js');
 
 // Routers
 const aiRouter = require("./routes/ai.routes.js"); // Import AI routes
 const nvdRouter = require("./routes/cve-nvd.routes.js"); // Import NVD routes
 const reportRouter = require("./routes/reports.routes.js"); // Import Report routes
 const loginRouter = require('./routes/login.js')
-
-
+const assetRouter = require('./routes/asset.routes.js')
 
 const app = express(); // Create an Express application
 
@@ -64,16 +64,30 @@ app.use("/ai", aiRouter); // Use AI routes
 app.use("/nvd", nvdRouter); // Use NVD routes
 app.use("/reports", reportRouter); // Use Report routes
 app.use('/login', loginRouter) //do Authentication and User Management
+app.use('/assets', assetRouter)
 
-// Error handler for invalid routes
-app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404)); // Handle invalid routes
+// Ruta de inicio (raíz)
+app.get('/', (req, res) => {
+    res.send('Bienvenido a la API de RiskVision');
+});
+
+
+// Ruta para obtener todos los datos de la tabla
+app.get('/api/data', async (req, res) => {
+    try {
+        const pool = await poolPromise;
+        const result = await pool.request().query('SELECT * FROM dbo.asset_inventory'); // Cambia al nombre real de la tabla
+        res.json(result.recordset);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
 });
 
 // Healthcheck endpoint
 app.get('/healthcheck', (req, res) => {
-  res.send('Hello World!'); // Simple healthcheck endpoint
-});
+    res.send('Hello World!')
+  })
+);
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
@@ -85,6 +99,11 @@ app.use((err, req, res, next) => {
     message: err.message, // Send error message
   });
 });
+
+// Error handler for invalid routes
+app.all("*", (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404)); // Handle invalid routes
+  });
 
 const PORT = process.env.PORT || 8000; // Set the port from environment variable or default to 8000
 app.listen(PORT, () => {
