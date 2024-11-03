@@ -86,8 +86,7 @@ app.get('/api/data', async (req, res) => {
 // Healthcheck endpoint
 app.get('/healthcheck', (req, res) => {
     res.send('Hello World!')
-  })
-);
+  });
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
