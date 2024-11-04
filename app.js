@@ -21,7 +21,7 @@ app.use(cors()); // Enable CORS
 app.options("*", cors()); // Enable CORS pre-flight for all routes
 
 // Global Middlewares
-if (process.env.NODE_ENV === "development") {
+if (process.env.ENVIRONMENT === "development") {
   app.use(morgan("dev")); // Use Morgan for logging in development mode
 }
 
