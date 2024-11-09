@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
 app.get('/api/data', async (req, res) => {
     try {
         const pool = await poolPromise;
-        const result = await pool.request().query('SELECT * FROM dbo.asset_inventory'); // Cambia al nombre real de la tabla
+        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_so, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX'"); // Cambia al nombre real de la tabla
         res.json(result.recordset);
     } catch (err) {
         res.status(500).send(err.message);
