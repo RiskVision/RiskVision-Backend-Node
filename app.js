@@ -13,7 +13,8 @@ const aiRouter = require("./routes/ai.routes.js"); // Import AI routes
 const nvdRouter = require("./routes/cve-nvd.routes.js"); // Import NVD routes
 const reportRouter = require("./routes/reports.routes.js"); // Import Report routes
 const loginRouter = require('./routes/login.js')
-const assetRouter = require('./routes/asset.routes.js')
+const assetRouter = require('./routes/asset.routes.js');
+const { generateAIResponse } = require("./services/ai.service.js");
 
 const app = express(); // Create an Express application
 
@@ -69,6 +70,18 @@ app.use('/assets', assetRouter)
 // Ruta de inicio (raíz)
 app.get('/', (req, res) => {
     res.send('Bienvenido a la API de RiskVision');
+});
+
+app.get('/api/ai', async (req, res) => {
+  try {
+    const test = "Hablame de la ISO27005 y la ISO27001, pensando en riesgos que puede tener una empresa de tecnología";
+    const reponseAI = await generateAIResponse(test);
+    console.log(reponseAI);
+    res.json(reponseAI);
+
+  }catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 
