@@ -10,7 +10,7 @@ exports.getReport = catchAsync(async (req, res, next) => {
 
         //Extraer los datos de los activos digitales enfocarse en la marca y Sistema Operativo
         const pool = await poolPromise;
-        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_so, clasificacion_activo FROM dbo.asset_inventory WHERE nombre_activo LIKE '%terminal%' ");
+        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_so, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
 
         const activos = result.recordset;
 
@@ -19,21 +19,13 @@ exports.getReport = catchAsync(async (req, res, next) => {
 
         const results = await scanner.start();
         const scannerResults = JSON.stringify(results, null, 2); // Convertir los resultados a una cadena JSON con formato
-
-        //console.log(scannerResults);
-
-        /* // Generate AI response content
-        const aiResponse = await aiService.generateAIResponse(vulnerability);
-
-        // Generate Word report with the retrieved content
-        const reportGenerator = new ReportGenerator();
-        const wordBuffer = await reportGenerator.createReport(aiResponse); */
-
-        //Guardar reporte en el blob storage de Azure (habrá que cambiar el report generator a usar el código de aylen)
+        
+        console.log(scannerResults)
+        // Generate AI response content
+        const aiResponse = await aiService.generateAIResponse(scannerResults);
 
         // Set headers and send the aRepsonse as a response
-        //res.send(aiResponse);
-        res.send(scannerResults)
+        res.send(aiResponse);
 
     } catch (error) {
         console.error('Report Generation Error:', error);

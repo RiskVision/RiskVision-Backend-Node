@@ -69,7 +69,7 @@ const generateAIResponse = async (prompt) => {
 
         const events = await client.streamChatCompletions(deploymentId, messages, {
             pastMessages: 5,
-            maxTokens: 800,
+            maxTokens: 1000,
             temperature: 0.7,
             topP: 0.95,
             frequencyPenalty: 0,
