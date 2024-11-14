@@ -65,7 +65,7 @@ app.use("/ai", aiRouter); // Use AI routes
 app.use("/nvd", nvdRouter); // Use NVD routes
 app.use("/reports", reportRouter); // Use Report routes
 app.use('/login', loginRouter) //do Authentication and User Management
-app.use('/assets', assetRouter)
+app.use('/api/assets', assetRouter); // Asset routes for CRUD operations
 
 // Ruta de inicio (raíz)
 app.get('/', (req, res) => {

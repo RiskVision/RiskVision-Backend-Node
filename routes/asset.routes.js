@@ -17,31 +17,32 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const pool = await poolPromise;
-        const { name, description, brand, model, quantity, operatingSystem, osVersion, responsibleUser, supportTeam, location, deploymentServer, acquisitionDate, lastAcquisitionDate, macAddress, ipAddress, criticalityLevel, assetClassification, status, recoveryPlan, monitoringFrequency, securityMonitoring, accessAudit } = req.body;
+        const { id_activo, nombre_activo, descripcion, marca, modelo, cantidad, sistema_operativo, version_os, usuario_responsable, equipo_soporte, ubicacion, servidor_deployment, fecha_adquisicion, fecha_ultima_actualizacion, direccion_mac, direccion_ip, nivel_criticidad, clasificacion_activo, estado, plan_recuperacion_drp, frecuencia_monitoreo, monitoreo_seguridad, auditoria_acceso } = req.body;
         await pool.request()
-            .input('name', sql.VarChar, name)
-            .input('description', sql.VarChar, description)
-            .input('brand', sql.VarChar, brand)
-            .input('model', sql.VarChar, model)
-            .input('quantity', sql.Int, quantity)
-            .input('operatingSystem', sql.VarChar, operatingSystem)
-            .input('osVersion', sql.VarChar, osVersion)
-            .input('responsibleUser', sql.VarChar, responsibleUser)
-            .input('supportTeam', sql.VarChar, supportTeam)
-            .input('location', sql.VarChar, location)
-            .input('deploymentServer', sql.VarChar, deploymentServer)
-            .input('acquisitionDate', sql.DateTime, acquisitionDate)
-            .input('lastAcquisitionDate', sql.DateTime, lastAcquisitionDate)
-            .input('macAddress', sql.VarChar, macAddress)
-            .input('ipAddress', sql.VarChar, ipAddress)
-            .input('criticalityLevel', sql.VarChar, criticalityLevel)
-            .input('assetClassification', sql.VarChar, assetClassification)
-            .input('status', sql.VarChar, status)
-            .input('recoveryPlan', sql.VarChar, recoveryPlan)
-            .input('monitoringFrequency', sql.VarChar, monitoringFrequency)
-            .input('securityMonitoring', sql.VarChar, securityMonitoring)
-            .input('accessAudit', sql.VarChar, accessAudit)
-            .query('INSERT INTO dbo.TestTable (name, description, brand, model, quantity, operatingSystem, osVersion, responsibleUser, supportTeam, location, deploymentServer, acquisitionDate, lastAcquisitionDate, macAddress, ipAddress, criticalityLevel, assetClassification, status, recoveryPlan, monitoringFrequency, securityMonitoring, accessAudit) VALUES (@name, @description, @brand, @model, @quantity, @operatingSystem, @osVersion, @responsibleUser, @supportTeam, @location, @deploymentServer, @acquisitionDate, @lastAcquisitionDate, @macAddress, @ipAddress, @criticalityLevel, @assetClassification, @status, @recoveryPlan, @monitoringFrequency, @securityMonitoring, @accessAudit)');
+            .input('id_activo', sql.VarChar, id_activo)
+            .input('nombre_activo', sql.VarChar, nombre_activo)
+            .input('descripcion', sql.VarChar, descripcion)
+            .input('marca', sql.VarChar, marca)
+            .input('modelo', sql.VarChar, modelo)
+            .input('cantidad', sql.Int, cantidad)
+            .input('sistema_operativo', sql.VarChar, sistema_operativo)
+            .input('version_os', sql.VarChar, version_os)
+            .input('usuario_responsable', sql.VarChar, usuario_responsable)
+            .input('equipo_soporte', sql.VarChar, equipo_soporte)
+            .input('ubicacion', sql.VarChar, ubicacion)
+            .input('servidor_deployment', sql.VarChar, servidor_deployment)
+            .input('fecha_adquisicion', sql.DateTime, fecha_adquisicion)
+            .input('fecha_ultima_actualizacion', sql.DateTime, fecha_ultima_actualizacion)
+            .input('direccion_mac', sql.VarChar, direccion_mac)
+            .input('direccion_ip', sql.VarChar, direccion_ip)
+            .input('nivel_criticidad', sql.VarChar, nivel_criticidad)
+            .input('clasificacion_activo', sql.VarChar, clasificacion_activo)
+            .input('estado', sql.VarChar, estado)
+            .input('plan_recuperacion_drp', sql.VarChar, plan_recuperacion_drp)
+            .input('frecuencia_monitoreo', sql.VarChar, frecuencia_monitoreo)
+            .input('monitoreo_seguridad', sql.VarChar, monitoreo_seguridad)
+            .input('auditoria_acceso', sql.VarChar, auditoria_acceso)
+            .query('INSERT INTO dbo.TestTable (id_activo, nombre_activo, descripcion, marca, modelo, cantidad, sistema_operativo, version_os, usuario_responsable, equipo_soporte, ubicacion, servidor_deployment, fecha_adquisicion, fecha_ultima_actualizacion, direccion_mac, direccion_ip, nivel_criticidad, clasificacion_activo, estado, plan_recuperacion_drp, frecuencia_monitoreo, monitoreo_seguridad, auditoria_acceso) VALUES (@id_activo, @nombre_activo, @descripcion, @marca, @modelo, @cantidad, @sistema_operativo, @version_os, @usuario_responsable, @equipo_soporte, @ubicacion, @servidor_deployment, @fecha_adquisicion, @fecha_ultima_actualizacion, @direccion_mac, @direccion_ip, @nivel_criticidad, @clasificacion_activo, @estado, @plan_recuperacion_drp, @frecuencia_monitoreo, @monitoreo_seguridad, @auditoria_acceso)');
         res.status(201).send('Activo creado');
     } catch (err) {
         res.status(500).send('Error al crear el activo');
@@ -49,36 +50,35 @@ router.post('/', async (req, res) => {
 });
 
 // Actualizar un activo
-router.put('/:id', async (req, res) => {
+router.put('/:id_activo', async (req, res) => {
     try {
         const pool = await poolPromise;
-        const { id } = req.params;
-        const { name, description, brand, model, quantity, operatingSystem, osVersion, responsibleUser, supportTeam, location, deploymentServer, acquisitionDate, lastAcquisitionDate, macAddress, ipAddress, criticalityLevel, assetClassification, status, recoveryPlan, monitoringFrequency, securityMonitoring, accessAudit } = req.body;
+        const { id_activo } = req.params;
+        const { nombre_activo, descripcion, marca, modelo, cantidad, sistema_operativo, version_os, usuario_responsable, equipo_soporte, ubicacion, servidor_deployment, fecha_adquisicion, fecha_ultima_actualizacion, direccion_mac, direccion_ip, nivel_criticidad, clasificacion_activo, estado, plan_recuperacion_drp, frecuencia_monitoreo, monitoreo_seguridad, auditoria_acceso } = req.body;
         await pool.request()
-            .input('id', sql.Int, id)
-            .input('name', sql.VarChar, name)
-            .input('description', sql.VarChar, description)
-            .input('brand', sql.VarChar, brand)
-            .input('model', sql.VarChar, model)
-            .input('quantity', sql.Int, quantity)
-            .input('operatingSystem', sql.VarChar, operatingSystem)
-            .input('osVersion', sql.VarChar, osVersion)
-            .input('responsibleUser', sql.VarChar, responsibleUser)
-            .input('supportTeam', sql.VarChar, supportTeam)
-            .input('location', sql.VarChar, location)
-            .input('deploymentServer', sql.VarChar, deploymentServer)
-            .input('acquisitionDate', sql.DateTime, acquisitionDate)
-            .input('lastAcquisitionDate', sql.DateTime, lastAcquisitionDate)
-            .input('macAddress', sql.VarChar, macAddress)
-            .input('ipAddress', sql.VarChar, ipAddress)
-            .input('criticalityLevel', sql.VarChar, criticalityLevel)
-            .input('assetClassification', sql.VarChar, assetClassification)
-            .input('status', sql.VarChar, status)
-            .input('recoveryPlan', sql.VarChar, recoveryPlan)
-            .input('monitoringFrequency', sql.VarChar, monitoringFrequency)
-            .input('securityMonitoring', sql.VarChar, securityMonitoring)
-            .input('accessAudit', sql.VarChar, accessAudit)
-            .query('UPDATE dbo.TestTable SET name = @name, description = @description, brand = @brand, model = @model, quantity = @quantity, operatingSystem = @operatingSystem, osVersion = @osVersion, responsibleUser = @responsibleUser, supportTeam = @supportTeam, location = @location, deploymentServer = @deploymentServer, acquisitionDate = @acquisitionDate, lastAcquisitionDate = @lastAcquisitionDate, macAddress = @macAddress, ipAddress = @ipAddress, criticalityLevel = @criticalityLevel, assetClassification = @assetClassification, status = @status, recoveryPlan = @recoveryPlan, monitoringFrequency = @monitoringFrequency, securityMonitoring = @securityMonitoring, accessAudit = @accessAudit WHERE id = @id');
+            .input('nombre_activo', sql.VarChar, nombre_activo)
+            .input('descripcion', sql.VarChar, descripcion)
+            .input('marca', sql.VarChar, marca)
+            .input('modelo', sql.VarChar, modelo)
+            .input('cantidad', sql.Int, cantidad)
+            .input('sistema_operativo', sql.VarChar, sistema_operativo)
+            .input('version_os', sql.VarChar, version_os)
+            .input('usuario_responsable', sql.VarChar, usuario_responsable)
+            .input('equipo_soporte', sql.VarChar, equipo_soporte)
+            .input('ubicacion', sql.VarChar, ubicacion)
+            .input('servidor_deployment', sql.VarChar, servidor_deployment)
+            .input('fecha_adquisicion', sql.DateTime, fecha_adquisicion)
+            .input('fecha_ultima_actualizacion', sql.DateTime, fecha_ultima_actualizacion)
+            .input('direccion_mac', sql.VarChar, direccion_mac)
+            .input('direccion_ip', sql.VarChar, direccion_ip)
+            .input('nivel_criticidad', sql.VarChar, nivel_criticidad)
+            .input('clasificacion_activo', sql.VarChar, clasificacion_activo)
+            .input('estado', sql.VarChar, estado)
+            .input('plan_recuperacion_drp', sql.VarChar, plan_recuperacion_drp)
+            .input('frecuencia_monitoreo', sql.VarChar, frecuencia_monitoreo)
+            .input('monitoreo_seguridad', sql.VarChar, monitoreo_seguridad)
+            .input('auditoria_acceso', sql.VarChar, auditoria_acceso)
+            .query('UPDATE dbo.TestTable SET id_activo = @id_activo, nombre_activo = @nombre_activo, descripcion = @descripcion, marca = @marca, modelo = @modelo, cantidad = @cantidad, sistema_operativo = @sistema_operativo, version_os = @version_os, usuario_responsable = @usuario_responsable, equipo_soporte = @equipo_soporte, ubicacion = @ubicacion, servidor_deployment = @servidor_deployment, fecha_adquisicion = @fecha_adquisicion, fecha_ultima_actualizacion = @fecha_ultima_actualizacion, direccion_mac = @direccion_mac, direccion_ip = @direccion_ip, nivel_criticidad = @nivel_criticidad, clasificacion_activo = @clasificacion_activo, estado = @estado, plan_recuperacion_drp = @plan_recuperacion_drp, frecuencia_monitoreo = @frecuencia_monitoreo, monitoreo_seguridad = @monitoreo_seguridad, auditoria_acceso = @auditoria_acceso WHERE id = @id');
         res.send('Activo actualizado');
     } catch (err) {
         res.status(500).send('Error al actualizar el activo');
@@ -86,11 +86,11 @@ router.put('/:id', async (req, res) => {
 });
 
 // Eliminar un activo
-router.delete('/:id', async (req, res) => {
+router.delete('/:id_activo', async (req, res) => {
     try {
         const pool = await poolPromise;
-        const { id } = req.params;
-        await pool.request().input('id', sql.Int, id).query('DELETE FROM dbo.TestTable WHERE id = @id');
+        const { id_activo } = req.params;
+        await pool.request().input('id_activo', sql.Int, id_activo).query('DELETE FROM dbo.TestTable WHERE id_activo = @id_activo');
         res.send('Activo eliminado');
     } catch (err) {
         res.status(500).send('Error al eliminar el activo');
