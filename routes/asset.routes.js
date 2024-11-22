@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { poolPromise, sql } = require('../database/dbSQL.js');
+const {authenticateToken} = require('../jwUtils')
 
 // Obtener todos los activos
-router.get('/', async (req, res) => {
+router.get('/',authenticateToken, async (req, res) => {
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM dbo.TestTable');
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // Crear un nuevo activo
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     try {
         const pool = await poolPromise;
         const { id_activo, nombre_activo, descripcion, marca, modelo, cantidad, sistema_operativo, version_os, usuario_responsable, equipo_soporte, ubicacion, servidor_deployment, fecha_adquisicion, fecha_ultima_actualizacion, direccion_mac, direccion_ip, nivel_criticidad, clasificacion_activo, estado, plan_recuperacion_drp, frecuencia_monitoreo, monitoreo_seguridad, auditoria_acceso } = req.body;
@@ -50,7 +51,7 @@ router.post('/', async (req, res) => {
 });
 
 // Actualizar un activo
-router.put('/:id_activo', async (req, res) => {
+router.put('/:id_activo', authenticateToken, async (req, res) => {
     try {
         const pool = await poolPromise;
         const { id_activo } = req.params;
@@ -86,7 +87,7 @@ router.put('/:id_activo', async (req, res) => {
 });
 
 // Eliminar un activo
-router.delete('/:id_activo', async (req, res) => {
+router.delete('/:id_activo', authenticateToken, async (req, res) => {
     try {
         const pool = await poolPromise;
         const { id_activo } = req.params;
