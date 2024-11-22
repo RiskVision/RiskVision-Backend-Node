@@ -4,10 +4,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const config = {
-    user: process.env.DB_USER || 'riskuser', // Asegúrate de definir estas variables en tu .env
-    password: process.env.DB_PASSWORD || 'user1234!',
-    server: process.env.DB_SERVER || 'riskvision.database.windows.net',
-    database: process.env.DB_DATABASE || 'riskvisionADSQL',
+    user: process.env.DB_USER, // Asegúrate de definir estas variables en tu .env
+    password: process.env.DB_PASSWORD ,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_DATABASE,
     options: {
         encrypt: true, // Utiliza true para Azure
         trustServerCertificate: true, // Cambia esto según sea necesario
