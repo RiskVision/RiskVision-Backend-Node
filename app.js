@@ -84,18 +84,6 @@ app.get('/api/ai', async (req, res) => {
   }
 });
 
-
-// Ruta para obtener todos los datos de la tabla
-app.get('/api/data', async (req, res) => {
-    try {
-        const pool = await poolPromise;
-        const result = await pool.request().query('SELECT * FROM dbo.asset_inventory'); // Cambia al nombre real de la tabla
-        res.json(result.recordset);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
 // Healthcheck endpoint
 app.get('/healthcheck', (req, res) => {
     res.send('Hello World!')
