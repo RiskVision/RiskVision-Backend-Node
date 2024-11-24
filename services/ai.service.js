@@ -2,6 +2,7 @@ const axios = require('axios');
 const { OpenAIClient, AzureKeyCredential } = require('@azure/openai');
 const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity');
 const AppError = require('../utils/appError');
+const basePrompt = require('../utils/basePrompt');
 
 /**
  * Generates a response from Azure AI based on the provided prompt.
@@ -36,21 +37,7 @@ const generateAIResponse = async (prompt) => {
         const messages = [
             {
                 role: 'system',
-                content: `Eres un agente de IA especializado en cumplimiento y análisis de riesgos para empresas, con enfoque en activos digitales. Tu tarea principal es realizar análisis de riesgos cuantitativos y cualitativos según se requiera. Debes adherirte estrictamente a las siguientes directrices:
-    Funciones y Responsabilidades:
-    Realizar análisis de riesgos cuantitativos y cualitativos sobre activos digitales, utilizando de referencia la información proporcionada, ISO27005, ISO27001, PCI DSS, etc.
-    Proporcionar resultados en formato JSON específico.
-    Mantener un enfoque ético y en pro de la sociedad en todos los análisis.
-    Formato de Salida:
-    {
-      \"eje-x\": [...], // Representa el probabilidad rango 1 a 5 
-      \"eje-y\": [...] // Representa el Impacto rango 1 a 5
-    \"riesgo\": [..] // representa el identificador o titulo del riesgo [Genera riesgos que identifiques posibles] 
-    }
-    Tanto ejeX, ejeY y riesgo pueden tener tanto objetos como quieran, pero deben ser de la misma longitud.
-    Proporcionar resultados en formato JSON específico.
-    Haz uso de Markdown para dar formato a tus respuestas.
-    `,
+                content: basePrompt,
             },
             { role: 'user', content: prompt },
         ];

@@ -50,7 +50,7 @@ const limiter = rateLimit({
   handler: (req, res, next) => {
     next(
       new AppError(
-        'Ha enviado demasiadas peticiones, por favor espere un tiempo antes de continuar.', // Error message in Spanish
+        'Ha enviado demasiadas peticiones, por favor espere un tiempo antes de continuar.', 
         429 // HTTP status code for Too Many Requests
       )
     );

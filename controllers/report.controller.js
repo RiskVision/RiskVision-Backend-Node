@@ -5,15 +5,22 @@ const VulnerabilityScanner = require('../services/cve-nvd.service');
 const ReportGenerator = require('../utils/reportGenerator'); // Adjust path as needed
 const {sql, poolPromise} = require('../database/dbSQL.js');
 const { json } = require('express');
+const {paxVulnerabilities} = require('../utils/basePrompt.js');
 
 exports.getReport = catchAsync(async (req, res, next) => {
     try {
 
         //Extraer los datos de los activos digitales enfocarse en la marca y Sistema Operativo
         const pool = await poolPromise;
-        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_so, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
+        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_os, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
 
         const activos = result.recordset;
+
+        /*
+
+        No se está usando el código por el momento debido a la caída del servidor de NVD, se hard codearon los valores. 
+
+
 
         // Obtain vulnerability data
         const scanner = new VulnerabilityScanner(activos);
@@ -22,15 +29,15 @@ exports.getReport = catchAsync(async (req, res, next) => {
         const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
 
         //console.log(scannerResults);
+        */
+
+        console.log("Vulnerabilidades limpias" + paxVulnerabilities)
+
+        fullAiPrompt = JSON.stringify(activos, null, 2) + paxVulnerabilities;
+        console.log("AI Prompt" + fullAiPrompt);
 
         // Generate AI response content
-        const aiResponse = await aiService.generateAIResponse(scannerResults);
-
-        // Generate Word report with the retrieved content
-        // const reportGenerator = new ReportGenerator();
-        // const wordBuffer = await reportGenerator.createReport(aiResponse);
-
-        //Guardar reporte en el blob storage de Azure (habrá que cambiar el report generator a usar el código de aylen)
+        const aiResponse = await aiService.generateAIResponse(fullAiPrompt);
 
         // Set headers and send the aRepsonse as a response
         return res.status(200).json({
@@ -39,6 +46,7 @@ exports.getReport = catchAsync(async (req, res, next) => {
                 content: aiResponse,
             }
         });
+        
         //res.send(scannerResults)
 
     } catch (error) {
