@@ -11,9 +11,10 @@ exports.getReport = catchAsync(async (req, res, next) => {
 
         //Extraer los datos de los activos digitales enfocarse en la marca y Sistema Operativo
         const pool = await poolPromise;
-        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_so, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
+        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_os, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
 
         const activos = result.recordset;
+        /*
 
         // Obtain vulnerability data
         const scanner = new VulnerabilityScanner(activos);
@@ -21,10 +22,10 @@ exports.getReport = catchAsync(async (req, res, next) => {
         const results = await scanner.start();
         const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
 
-        //console.log(scannerResults);
+        //console.log(scannerResults);*/
 
         // Generate AI response content
-        const aiResponse = await aiService.generateAIResponse(scannerResults);
+        const aiResponse = await aiService.generateAIResponse(JSON.stringify(activos));
 
         // Generate Word report with the retrieved content
         // const reportGenerator = new ReportGenerator();
