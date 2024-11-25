@@ -16,7 +16,9 @@ exports.getReport = catchAsync(async (req, res, next) => {
                 "SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_os, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX'"
             );
 
+
         const activos = result.recordset;
+
 
         const fullAiPromptObject = {
             activos, paxVulnerabilities // Debe ser un array de objetos, no strings JSON
