@@ -1,25 +1,11 @@
-import express from "express";
-import ReportGenerator from "../dependencies/ReportGenerator.js";
+const express = require('express');
+var router = express.Router();
 
-const router = express();
-const reportGenerator = new ReportGenerator();
+const {
+    getReport,
+} = require('../controllers/report.controller');
 
-router.post("/create-report", async (req, res) => {
-    const text = req.body.text;
+router.route('/getReport')
+    .get(getReport);
 
-    try {
-        const reportBuffer = await reportGenerator.createReport(text);
-
-        // Set headers to indicate a file download
-        res.setHeader("Content-Disposition", "attachment; filename=report.docx");
-        res.setHeader("Content-Type", "routerlication/vnd.openxmlformats-officedocument.wordprocessingml.document");
-
-        // Send the file as bytes
-        res.send(reportBuffer);
-    } catch (error) {
-        console.error("Error creating report:", error);
-        res.status(500).send("Error creating report");
-    }
-});
-
-export default router;
+module.exports = router;
