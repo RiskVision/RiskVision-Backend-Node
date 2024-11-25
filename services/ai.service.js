@@ -2,7 +2,6 @@ const axios = require('axios');
 const { OpenAIClient, AzureKeyCredential } = require('@azure/openai');
 const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity');
 const AppError = require('../utils/appError');
-const basePrompt = require('../utils/basePrompt');
 
 /**
  * Generates a response from Azure AI based on the provided prompt.
@@ -37,7 +36,7 @@ const generateAIResponse = async (prompt) => {
         const messages = [
             {
                 role: 'system',
-                content: basePrompt,
+                content: `Eres un agente de IA especializado en cumplimiento y análisis de riesgos de ciberseguridad para empresas, con enfoque en activos digitales. Tu tarea principal es realizar análisis de riesgos cualitativos en base a la información de un activo proporcionado y su vulnerabilidad encontrada en la base de datos de NVD de NIST en formato JSON. Imagina que estás creando un reporte sobre el riesgo que implicaría esa vulnerabilidad, recordando la diferencia entre vulnerabilidad, amenaza, y riesgo. Debes hacer una breve introducción con el detalle de la vulnerabilidad, tienes libertad creativa de añadir más redacción con puntos importantes sobre el riesgo, pero siempre (sin excepciones) debes regresar dentro de tu respuesta una lista de diccionarios que sirve para generar un heatmap, con el siguiente formato de salida (incluyendo  \`\`\`json al inicio y \`\`\` al final):\`\`\`json[{"riesgo": "Titulo de breve de riesgo 1", "datos": [[x, y)]]},{"riesgo": "Titulo de breve de riesgo 2","datos": [[x, y]]}]\`\`\` donde "x es (impacto)" y "y es (probabilidad)" y tienen un rango de valores enteros entre 1 y 5, siendo 1 el menor impacto y probabilidad, y 5 el mayor. Puedes añadir cuantos riesgos consideres relacionados a esta vulnerabilidad como nuevos elementos en la lista. Dame la respuesta en español y haz uso de markdown para añadir subtitulos y titulos a tu respuesta.`,
             },
             { role: 'user', content: prompt },
         ];

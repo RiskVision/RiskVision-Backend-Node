@@ -5,7 +5,7 @@ const VulnerabilityScanner = require('../services/cve-nvd.service');
 const ReportGenerator = require('../utils/reportGenerator'); // Adjust path as needed
 const {sql, poolPromise} = require('../database/dbSQL.js');
 const { json } = require('express');
-const {paxVulnerabilities} = require('../utils/basePrompt.js');
+const {paxVulnerabilities} = require('../utils/scannedVulnerabilities.js');
 
 exports.getReport = catchAsync(async (req, res, next) => {
     try {
@@ -19,7 +19,7 @@ exports.getReport = catchAsync(async (req, res, next) => {
         const activos = result.recordset;
 
         const fullAiPromptObject = {
-            activos // Debe ser un array de objetos, no strings JSON
+            activos, paxVulnerabilities // Debe ser un array de objetos, no strings JSON
         };
 
         // Crear JSON string plano sin escapes adicionales
@@ -28,7 +28,7 @@ exports.getReport = catchAsync(async (req, res, next) => {
         console.log("AI Prompt for Azure:", fullAiPrompt);
 
         // Generar respuesta del servicio AI
-        const aiResponse = await aiService.generateAIResponse("hola");
+        const aiResponse = await aiService.generateAIResponse("Ahi va mi activo y 3 vulnerabilidades encontradas" + fullAiPrompt);
 
         return res.status(200).json({
             status: "success",
