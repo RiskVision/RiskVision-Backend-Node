@@ -5,45 +5,60 @@ const VulnerabilityScanner = require('../services/cve-nvd.service');
 const ReportGenerator = require('../utils/reportGenerator'); // Adjust path as needed
 const {sql, poolPromise} = require('../database/dbSQL.js');
 const { json } = require('express');
+const {paxVulnerabilities} = require('../utils/scannedVulnerabilities.js');
 
 exports.getReport = catchAsync(async (req, res, next) => {
     try {
-
-        //Extraer los datos de los activos digitales enfocarse en la marca y Sistema Operativo
         const pool = await poolPromise;
-        const result = await pool.request().query("SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_os, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX' ");
+        const result = await pool
+            .request()
+            .query(
+                "SELECT DISTINCT id_activo, nombre_activo, marca, modelo, sistema_operativo, version_os, clasificacion_activo FROM dbo.asset_inventory WHERE marca = 'PAX'"
+            );
+
 
         const activos = result.recordset;
-        /*
 
-        // Obtain vulnerability data
-        const scanner = new VulnerabilityScanner(activos);
 
-        const results = await scanner.start();
-        const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
+        const fullAiPromptObject = {
+            activos, paxVulnerabilities // Debe ser un array de objetos, no strings JSON
+        };
 
-        //console.log(scannerResults);*/
+        // Crear JSON string plano sin escapes adicionales
+        const fullAiPrompt = JSON.stringify(fullAiPromptObject);
 
-        // Generate AI response content
-        const aiResponse = await aiService.generateAIResponse(JSON.stringify(activos));
+        console.log("AI Prompt for Azure:", fullAiPrompt);
 
-        // Generate Word report with the retrieved content
-        // const reportGenerator = new ReportGenerator();
-        // const wordBuffer = await reportGenerator.createReport(aiResponse);
+        // Generar respuesta del servicio AI
+        const aiResponse = await aiService.generateAIResponse("Ahi va mi activo y 3 vulnerabilidades encontradas" + fullAiPrompt);
 
-        //Guardar reporte en el blob storage de Azure (habrá que cambiar el report generator a usar el código de aylen)
-
-        // Set headers and send the aRepsonse as a response
         return res.status(200).json({
-            status: 'success',
+            status: "success",
             data: {
                 content: aiResponse,
-            }
+            },
         });
-        //res.send(scannerResults)
-
     } catch (error) {
-        console.error('Report Generation Error:', error);
-        return next(new AppError(error.message || 'Failed to generate report', 500));
+        console.error("Report Generation Error:", error);
+        return next(
+            new AppError(error.message || "Failed to generate report", 500)
+        );
     }
 });
+
+
+
+/*
+
+No se está usando el código por el momento debido a la caída del servidor de NVD, se hard codearon los valores. 
+
+
+
+// Obtain vulnerability data
+const scanner = new VulnerabilityScanner(activos);
+
+const results = await scanner.start();
+const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
+
+//console.log(scannerResults);
+*/
