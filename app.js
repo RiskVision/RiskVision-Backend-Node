@@ -14,6 +14,10 @@ const nvdRouter = require("./routes/cve-nvd.routes.js"); // Import NVD routes
 const reportRouter = require("./routes/reports.routes.js"); // Import Report routes
 const loginRouter = require('./routes/login.js')
 const assetRouter = require('./routes/asset.routes.js');
+const blobStorageRouter = require('./routes/blobstorage.routes.js');
+const blobStorageRouterEmpresa = require('./routes/blobstorageempresa.routes.js');
+const blobStorageRouterReportes = require('./routes/blobstoragereportes.routes.js');
+
 const { generateAIResponse } = require("./services/ai.service.js");
 
 const app = express(); // Create an Express application
@@ -66,6 +70,9 @@ app.use("/nvd", nvdRouter); // Use NVD routes
 app.use("/reports", reportRouter); // Use Report routes
 app.use('/login', loginRouter) //do Authentication and User Management
 app.use('/api/assets', assetRouter); // Asset routes for CRUD operations
+app.use("/storage", blobStorageRouter); // Use Blob Storage routes
+app.use("/storageEmpresa", blobStorageRouterEmpresa); // Use Blob Storage routes
+app.use("/reportes-pasados", blobStorageRouterReportes); // Use Blob Storage routes
 
 // Ruta de inicio (raíz)
 app.get('/', (req, res) => {
