@@ -1,3 +1,5 @@
+/*Vulnerabilidades guardadas usadas cuando el servicio de NVD estaba caido"*/
+
 const paxVuln = {
   "response": {
       "cve-2023-42133": {

@@ -2,14 +2,15 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const aiService = require('../services/ai.service');
 const VulnerabilityScanner = require('../services/cve-nvd.service');
-const ReportGenerator = require('../utils/reportGenerator'); // Adjust path as needed
 const {sql, poolPromise} = require('../database/dbSQL.js');
 const { json } = require('express');
-const {paxVulnerabilities} = require('../utils/scannedVulnerabilities.js');
 
 exports.getReport = catchAsync(async (req, res, next) => {
     try {
         const pool = await poolPromise;
+
+
+        //Query de la base de datos acotada buscar los activos de la marca PAX (caso de uso seleccionado del reto)
         const result = await pool
             .request()
             .query(
@@ -19,18 +20,21 @@ exports.getReport = catchAsync(async (req, res, next) => {
 
         const activos = result.recordset;
 
+        // Obtener los datos necesarios de las vulnerabilidades
+        const scanner = new VulnerabilityScanner(activos);
 
+        const results = await scanner.start();
+        const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
+
+        //Se juntan la información para el prompt y se convierten a un string valido
         const fullAiPromptObject = {
-            activos, paxVulnerabilities // Debe ser un array de objetos, no strings JSON
+            activos, scannerResults
         };
 
-        // Crear JSON string plano sin escapes adicionales
         const fullAiPrompt = JSON.stringify(fullAiPromptObject);
 
-        console.log("AI Prompt for Azure:", fullAiPrompt);
-
         // Generar respuesta del servicio AI
-        const aiResponse = await aiService.generateAIResponse("Ahi va mi activo y 3 vulnerabilidades encontradas" + fullAiPrompt);
+        const aiResponse = await aiService.generateAIResponse("A continuación te doy mi activo y la vulnerabilidades encontradas" + fullAiPrompt);
 
         return res.status(200).json({
             status: "success",
@@ -45,20 +49,3 @@ exports.getReport = catchAsync(async (req, res, next) => {
         );
     }
 });
-
-
-
-/*
-
-No se está usando el código por el momento debido a la caída del servidor de NVD, se hard codearon los valores. 
-
-
-
-// Obtain vulnerability data
-const scanner = new VulnerabilityScanner(activos);
-
-const results = await scanner.start();
-const scannerResults = JSON.stringify(results); // Convertir los resultados a una cadena JSON con formato
-
-//console.log(scannerResults);
-*/
